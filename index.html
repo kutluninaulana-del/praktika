@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Девелопер</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>Панель девелопера</h1><address>г. Москва</address></header>
+  <nav><ul><li><a href="#zhk">ЖК</a></li></ul></nav>
+  
+  <main>
+    <section id="zhk"><h2>Жилые комплексы</h2></section>
+    <section id="apts">
+      <table>
+        <caption>Квартиры</caption>
+        <thead><tr><th scope="col">ID</th><th scope="col">Статус</th></tr></thead>
+        <tbody id="apt-body"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <aside><h2>Фильтры</h2></aside>
+  <footer><p>&copy; <time datetime="2026">2026</time></p></footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+/* Сброс без звездочки */
+html, body, h1, h2, p, ul, table { margin: 0; padding: 0; }
+ul { list-style: none; }
+
+/* 20+ переменных */
+:root {
+  --bg1: #fff; --bg2: #eee; --bg3: #ddd;
+  --tx1: #000; --tx2: #333; --tx3: #666;
+  --br1: #ccc; --br2: #999;
+  --ac: #00f; 
+  --st1: #0f0; --st2: #ff0; --st3: #f00; --st4: #0ff;
+  --sp1: 4px; --sp2: 8px; --sp3: 16px; --sp4: 24px; --sp5: 32px; --sp6: 48px;
+  --rd1: 4px; --rd2: 8px; --rd3: 12px; --rd4: 16px;
+  --sh1: 0 1px 2px #000; --sh2: 0 2px 4px #000; --sh3: 0 4px 8px #000;
+  --fs1: 12px; --fs2: 14px; --fs3: 16px; --fs4: 20px; --fs5: 24px; --fs6: 32px;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  /* Сетка Grid */
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "h h" "n m" "f f";
+  min-height: 100vh;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+header { grid-area: h; background: var(--bg2); padding: var(--sp3); }
+nav { grid-area: n; background: var(--bg1); padding: var(--sp3); }
+main { grid-area: m; padding: var(--sp3); }
+aside { grid-area: n; margin-top: var(--sp6); }
+footer { grid-area: f; background: var(--bg3); padding: var(--sp3); }
