@@ -2,26 +2,142 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Девелопер</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Платформа для девелопера</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header><h1>Панель девелопера</h1><address>г. Москва</address></header>
-  <nav><ul><li><a href="#zhk">ЖК</a></li></ul></nav>
+<header class="header">
+  <!-- Кнопка-гамбургер для мобильных -->
+  <button class="burger-btn" aria-label="Открыть меню">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
   
-  <main>
-    <section id="zhk"><h2>Жилые комплексы</h2></section>
-    <section id="apts">
-      <table>
-        <caption>Квартиры</caption>
-        <thead><tr><th scope="col">ID</th><th scope="col">Статус</th></tr></thead>
-        <tbody id="apt-body"></tbody>
-      </table>
+  <h1>Панель девелопера</h1>
+</header>
+
+    <h1>Панель девелопера</h1>
+  </header>
+
+  <nav class="sidebar">
+    <h2>Меню</h2>
+    <ul>
+      <li><a href="#properties">Объекты</a></li>
+      <li><a href="#buildings">Корпуса</a></li>
+      <li><a href="#apartments">Квартиры</a></li>
+    </ul>
+    <address>
+      <a href="mailto:info@dev.ru">info@dev.ru</a>
+    </address>
+  </nav>
+
+  <main class="main">
+    <!-- Панель фильтров (2.4) -->
+    <section id="filters-section" class="filters-panel">
+      <h2>Фильтры и поиск</h2>
+      <form id="filters-form">
+        <div class="filter-group">
+          <label for="search-input">Поиск по названию:</label>
+          <input type="search" id="search-input" placeholder="Введите название...">
+        </div>
+        
+        <div class="filter-group">
+          <label for="status-select">Статус:</label>
+          <select id="status-select">
+            <option value="all">Все</option>
+            <option value="Проект">Проект</option>
+            <option value="Строительство">Строительство</option>
+            <option value="Сдан">Сдан</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <span>Приоритет:</span>
+          <label class="custom-checkbox">
+            <input type="checkbox" value="Высокий" class="priority-filter">
+            <span>Высокий</span>
+          </label>
+          <label class="custom-checkbox">
+            <input type="checkbox" value="Средний" class="priority-filter">
+            <span>Средний</span>
+          </label>
+        </div>
+
+        <div class="filter-group">
+          <span>Вид:</span>
+          <label class="custom-radio">
+            <input type="radio" name="view" value="grid" checked>
+            <span>Сетка</span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" name="view" value="list">
+            <span>Список</span>
+          </label>
+        </div>
+
+        <button type="reset" class="btn-reset">Сбросить</button>
+      </form>
+    </section>
+
+    <section id="properties">
+      <h2>Объекты недвижимости</h2>
+      <section id="properties-list" class="grid-list"></section>
+    </section>
+
+    <section id="buildings">
+      <h2>Корпуса</h2>
+      <section id="buildings-list" class="grid-list"></section>
+    </section>
+
+    <section id="apartments">
+      <h2>Квартиры</h2>
+      <div class="table-wrapper">
+        <table id="apartments-table">
+          <caption>Список квартир и статус продаж</caption>
+          <thead>
+            <tr>
+              <th scope="col" data-sort="number">Номер <span class="sort-arrow">↕</span></th>
+              <th scope="col" data-sort="area">Площадь <span class="sort-arrow">↕</span></th>
+              <th scope="col" data-sort="price">Цена <span class="sort-arrow">↕</span></th>
+              <th scope="col">Статус</th>
+            </tr>
+          </thead>
+          <tbody id="apartments-body"></tbody>
+        </table>
+      </div>
     </section>
   </main>
 
-  <aside><h2>Фильтры</h2></aside>
-  <footer><p>&copy; <time datetime="2026">2026</time></p></footer>
-  <script type="module" src="app.js"></script>
+  <aside class="aside">
+    <h2>Статистика</h2>
+    <p>Данные обновляются в реальном времени.</p>
+  </aside>
+
+  <footer class="footer">
+    <p>&copy; 2024 Платформа для девелопера</p>
+  </footer>
+
+  <!-- Модальное окно (2.5) -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal-window" role="dialog" aria-modal="true">
+      <header class="modal-header">
+        <h3 id="modal-title">Заголовок</h3>
+        <button class="modal-close" aria-label="Закрыть">&times;</button>
+      </header>
+      <div class="modal-body" id="modal-body">
+        <!-- Содержимое генерируется JS -->
+      </div>
+      <footer class="modal-footer"><button class="btn-primary modal-action">Подробнее</button>
+        <button class="btn-secondary modal-close-btn">Закрыть</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="renderer.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

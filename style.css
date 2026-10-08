@@ -1,0 +1,700 @@
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, p, figure, address { margin: 0; }
+ul { list-style: none; padding: 0; }
+img { display: block; max-width: 100%; }
+body { line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+:root {
+  --bg-main: #f8f9fa; --bg-card: #ffffff; --bg-hover: #e9ecef;
+  --text-main: #212529; --text-muted: #6c757d; --text-light: #adb5bd;
+  --border-light: #dee2e6; --border-dark: #ced4da;
+  --accent: #0d6efd;
+  --state-success: #198754; --state-warning: #ffc107; --state-error: #dc3545; --state-info: #0dcaf0;
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 16px; --sp-4: 24px; --sp-5: 32px; --sp-6: 48px;
+  --rad-sm: 4px; --rad-md: 8px; --rad-lg: 16px; --rad-full: 50%;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); --shadow-md: 0 4px 6px rgba(0,0,0,0.1); --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+  --fs-xs: 12px; --fs-sm: 14px; --fs-base: 16px; --fs-md: 18px; --fs-lg: 24px; --fs-xl: 32px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-size: var(--fs-base);
+  display: grid;
+  grid-template-areas: "header header" "sidebar main" "sidebar aside" "footer footer";
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  min-height: 100vh;
+}
+
+.header { grid-area: header; background: var(--bg-card); padding: var(--sp-4); border-bottom: 1px solid var(--border-light); }
+.sidebar { grid-area: sidebar; background: var(--bg-card); padding: var(--sp-4); border-right: 1px solid var(--border-light); }
+.main { grid-area: main; padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-6); }
+.aside { grid-area: aside; background: var(--bg-card); padding: var(--sp-4); border-top: 1px solid var(--border-light); }
+.footer { grid-area: footer; background: var(--bg-card); padding: var(--sp-4); text-align: center; border-top: 1px solid var(--border-light); }
+
+h1 { font-size: var(--fs-xl); letter-spacing: -0.5px; }
+h2 { font-size: var(--fs-lg); letter-spacing: -0.3px; margin-bottom: var(--sp-4); }
+h3 { font-size: var(--fs-md); letter-spacing: -0.2px; }
+p { font-size: var(--fs-base); letter-spacing: 0.1px; }
+
+.grid-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--sp-4); }
+.card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--rad-md); padding: var(--sp-4); box-shadow: var(--shadow-sm); }
+.card img {
+  width: 220px;
+  height: 220px; 
+
+  border-radius: var(--rad-sm);
+}
+.card figcaption { font-weight: 600; margin-bottom: var(--sp-2); }
+
+.status { font-weight: 600; font-size: var(--fs-sm); }
+.status.сдан, .status.продана { color: var(--state-success); }
+.status.строительство, .status.бронь { color: var(--state-warning); }
+.status.проект, .status.свободна { color: var(--state-info); }
+
+table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: var(--rad-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+caption { text-align: left; padding: var(--sp-3); font-weight: 600; color: var(--text-muted); }
+th, td { padding: var(--sp-3); text-align: left; border-bottom: 1px solid var(--border-light); }
+th { background: var(--bg-main); font-weight: 600; }
+.search-form {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  background: var(--bg-card);
+  padding: var(--sp-4);
+  border-radius: var(--rad-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.search-form label {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+
+.search-form input {
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--rad-sm);
+  font-family: inherit;
+  font-size: var(--fs-base);
+  flex-grow: 1;
+}
+
+.search-form button {
+  padding: var(--sp-2) var(--sp-4);
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--rad-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.search-form button:hover {
+  background-color: #0b5ed7;
+}
+
+.badge {
+  display: inline-block;
+  padding: var(--sp-1) var(--sp-2);
+  border-radius: var(--rad-sm);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+}
+.badge-проект { background-color: var(--state-info); }
+.badge-строительство { background-color: var(--state-warning); }
+.badge-сдан { background-color: var(--state-success); }
+.badge-свободна { background-color: var(--state-success); }
+.badge-бронь { background-color: var(--state-warning); }
+.badge-продана { background-color: var(--state-error); }
+
+.priority { font-size: var(--fs-sm); font-weight: 600; display: flex; align-items: center; gap: var(--sp-1); }
+.priority::before { content: "●"; font-size: 10px; }
+.priority-высокий { color: var(--state-error); }
+.priority-средний { color: var(--state-warning); }
+.priority-низкий { color: var(--state-info); }
+
+
+.table-wrapper {
+  overflow-x: auto; /* Горизонтальный скролл на мобильных */
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-card);
+  border-radius: var(--rad-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+caption { text-align: left; padding: var(--sp-3); font-weight: 600; color: var(--text-muted); }
+th, td { padding: var(--sp-3); text-align: left; border-bottom: 1px solid var(--border-light); }
+th {
+  background: var(--bg-main);
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+th:hover { background-color: var(--bg-hover); }
+tr:nth-child(even) { background-color: var(--bg-main); } /* Чередование */
+tr:hover { background-color: var(--bg-hover); transition: background-color 0.2s; } /* Hover */
+.sort-arrow { font-size: 10px; margin-left: var(--sp-1); color: var(--text-light); }
+th.asc .sort-arrow, th.desc .sort-arrow { color: var(--accent); font-weight: bold; }
+
+
+button, a, input, select {
+  transition: all 0.2s ease;
+}
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+button:active {
+  transform: scale(0.98);
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.filters-panel {
+  background: var(--bg-card);
+  padding: var(--sp-4);
+  border-radius: var(--rad-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--sp-5);
+}
+#filters-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  align-items: flex-end;
+}
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+.filter-group label, .filter-group span {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-main);
+}
+.filter-group input[type="search"], .filter-group select {
+  padding: var(--sp-2);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--rad-sm);
+  font-family: inherit;
+  min-width: 200px;
+}
+
+.custom-checkbox, .custom-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  cursor: pointer;
+  font-weight: 400;
+}
+.custom-checkbox input, .custom-radio input {
+  display: none;
+}
+.custom-checkbox span::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border-dark);
+  border-radius: var(--rad-sm);
+  margin-right: var(--sp-1);
+  vertical-align: middle;
+  transition: all 0.2s;
+}
+.custom-checkbox input:checked + span::before {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.custom-radio span::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border-dark);
+  border-radius: 50%;
+  margin-right: var(--sp-1);
+  vertical-align: middle;
+  transition: all 0.2s;
+}
+.custom-radio input:checked + span::before {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 3px white;
+}
+.btn-reset {
+  padding: var(--sp-2) var(--sp-4);
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--rad-sm);
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-reset:hover { background-color: var(--bg-hover); }
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-window {
+  background: var(--bg-card);
+  border-radius: var(--rad-lg);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(20px);
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.modal-overlay.active .modal-window {
+  transform: translateY(0);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--sp-4);
+  border-bottom: 1px solid var(--border-light);
+}
+.modal-header h3 { margin: 0; }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 0;
+  line-height: 1;
+}
+.modal-close:hover { color: var(--state-error); }
+.modal-body { padding: var(--sp-4); }
+.modal-footer {
+  padding: var(--sp-4);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  gap: var(--sp-2);
+  justify-content: flex-end;
+}
+.btn-primary, .btn-secondary {
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--rad-sm);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-primary { background-color: var(--accent); color: white; }
+.btn-primary:hover { background-color: #0b5ed7; }
+.btn-secondary { background-color: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-dark); }
+.btn-secondary:hover { background-color: var(--bg-hover); }
+
+
+
+
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: var(--bg-card);
+  padding: var(--sp-5) var(--sp-4);
+  border-right: 1px solid var(--border-light);
+}
+
+.sidebar h2 {
+  font-size: var(--fs-md);
+  margin-bottom: var(--sp-4);
+  color: var(--text-secondary);
+}
+
+.sidebar ul {
+  list-style: none; 
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2); 
+  }
+
+.sidebar a {
+  display: block;
+  padding: var(--sp-2) var(--sp-3);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--rad-md);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar a:hover {
+  background-color: var(--bg-secondary);
+  color: var(--accent);
+}
+
+.sidebar address {
+  margin-top: var(--sp-6);
+  font-style: normal;
+  font-size: var(--fs-sm);
+  color: var(--text-tertiary);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border-light);
+}
+
+.sidebar address a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.sidebar ul li a {
+  display: block;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--rad-md);
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.sidebar ul li a {
+  display: block;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--rad-md);
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+
+.sidebar ul li:nth-child(1) a {
+  background-color: var(--state-info);
+}
+.sidebar ul li:nth-child(1) a:hover {
+  background-color: #0aa2c0; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(13, 202, 240, 0.4);
+}
+
+.sidebar ul li:nth-child(2) a {
+  background-color: var(--state-success);
+}
+.sidebar ul li:nth-child(2) a:hover {
+  background-color: #146c43;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(25, 135, 84, 0.4);
+}
+
+.sidebar ul li:nth-child(3) a {
+  background-color: #d39e00; 
+}
+.sidebar ul li:nth-child(3) a:hover {
+  background-color: #b38600;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 193, 7, 0.4);
+}
+/* ========================================= */
+/* ===== 3.1. АДАПТИВНАЯ ВЕРСТКА (Mobile-First) ===== */
+/* ========================================= */
+
+/* --- Мобильная версия (по умолчанию до 767px) --- */
+
+/* Скрываем сайдбар и уводим его влево */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 280px;
+  z-index: 100;
+  transform: translateX(-100%); /* Скрыт за левым краем */
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+/* Когда меню открыто */
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* Затемненный overlay */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Кнопка-гамбургер */
+.burger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  min-width: 44px; /* Требование 3.5 */
+  min-height: 44px;
+  align-items: center;
+}
+.burger-btn span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background-color: var(--text-main);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+/* Анимация превращения в крестик */
+.burger-btn.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.burger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+.burger-btn.active span:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Layout для мобильных — одна колонка */
+body {
+  grid-template-areas:
+    "header"
+    "main"
+    "aside"
+    "footer";
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto auto;
+}
+
+/* 3.6. Изменение порядка — фильтры на мобильном идут до основного контента */
+.main {
+  display: flex;
+  flex-direction: column;
+}
+#filters-section { order: 1; }
+#properties { order: 2; }
+#buildings { order: 3; }
+#apartments { order: 4; }
+
+/* 3.3. Таблица на мобильном — превращается в карточки */
+@media (max-width: 767px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  tr {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--rad-md);
+    margin-bottom: var(--sp-3);
+    padding: var(--sp-3);
+    box-shadow: var(--shadow-sm);
+  }
+  td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+    padding-top: var(--sp-2);
+    padding-bottom: var(--sp-2);
+    border-bottom: 1px solid var(--border-light);
+  }
+  td:last-child {
+    border-bottom: none;
+  }
+  /* Вывод названия колонки через data-label и content */
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-right: 10px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+}
+
+/* ========================================= */
+/* ===== 3.1. Планшет (от 768px до 1023px) ===== */
+/* ========================================= */
+@media (min-width: 768px) {
+  /* Возвращаем обычный Layout с сайдбаром */
+  body {
+    grid-template-areas:
+      "header header"
+      "sidebar main"
+      "sidebar aside"
+      "footer footer";
+    grid-template-columns: 250px 1fr;
+  }
+  
+  /* Прячем гамбургер и overlay на планшетах */
+  .burger-btn { display: none; }
+  .sidebar-overlay { display: none; }
+  
+  /* Возвращаем сайдбар на место */
+  .sidebar {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    height: auto;
+    width: auto;
+  }
+
+  /* Таблица — горизонтальный скролл, первая колонка зафиксирована */
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  table {
+    display: table;
+    width: 100%;
+  }
+  thead { display: table-header-group; }
+  tbody { display: table-row-group; }
+  tr { 
+    display: table-row;background-color: transparent;
+    border: none;
+    margin-bottom: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  th, td { 
+    display: table-cell;
+    padding: var(--sp-3);
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+  }
+  td::before { display: none; } /* Убираем подписи из мобильной версии */
+  
+  /* Фиксация первой колонки */
+  th:first-child, td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: var(--bg-card);
+    z-index: 2;
+  }
+  th:first-child {
+    background-color: var(--bg-main);
+  }
+  
+  /* Чередование строк возвращаем */
+  tr:nth-child(even) { background-color: var(--bg-main); }
+  
+  /* Отключаем hover-эффекты на тач-устройствах (требование 3.5) */
+  @media (hover: none) {
+    tr:hover { background-color: transparent; }
+    .sidebar ul li a:hover { transform: none; box-shadow: none; }
+  }
+}
+
+/* ========================================= */
+/* ===== 3.1. Десктоп (от 1024px и выше) ===== */
+/* ========================================= */
+@media (min-width: 1024px) {
+  body {
+    grid-template-columns: 280px 1fr;
+  }
+  
+  .main {
+    padding: var(--sp-6);
+  }
+}
+
+/* ========================================= */
+/* ===== 3.4. Адаптивная типографика (clamp) ===== */
+/* ========================================= */
+h1 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
+h2 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
+h3 { font-size: clamp(1rem, 1.5vw, 1.125rem); }
+p { font-size: clamp(0.875rem, 1.2vw, 1rem); }
+.card figcaption { font-size: clamp(0.875rem, 1.2vw, 1rem); }
+
+/* ========================================= */
+/* ===== 3.5. Тач-интерфейс ===== */
+/* ========================================= */
+/* Увеличиваем кликабельную область до 44x44 */
+.sidebar ul li a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+button, .btn-primary, .btn-secondary, .btn-reset {
+  min-height: 44px;
+  min-width: 44px;
+}
+/* Отключаем двойной тап для зума */
+* {
+  touch-action: manipulation;
+}
+/* Состояние active для кликов */
+.sidebar ul li a:active {
+  transform: scale(0.97);
+}
+button:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
